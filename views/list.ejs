@@ -1,0 +1,47 @@
+<%- include("header");  -%>
+<div class="box" id="heading">
+    <h1>
+        <%= listTitle %>
+    </h1>
+</div>
+
+
+<div class="box">
+
+    <% if (newItems.length===0) { %>
+
+    <!-- <h1>There is no item yet. Start building your ToDo List by adding your first item!</h1> -->
+
+    <% } else { %>
+
+
+
+    <!-- <%# for (var i=0; i<newItems.length; i++) { %>
+                    <div class="item">
+                        <input type="checkbox">
+                       <p><%# newItems[i].name %></p>
+                    </div>
+                    <%# } %> -->
+
+
+<% newItems.forEach((newItem) => { %>
+    <form action="/delete" method="post">
+    <div class="item">
+        <input type="checkbox" name="checkbox" value="<%= newItem._id %>" onchange="this.form.submit()">
+        <p><%= newItem.name %> </p>
+        <input type="hidden" name="listTitle" value="<%= listTitle %>">
+    </div>
+</form>
+ 
+<% }) %>
+
+
+<% } %>
+<form class="item" action="/" method="post">
+    <input type="text" name="newItem" autofocus placeholder="New Item" autocomplete="off">
+    <button type="submit" name="listType" value="<%= listTitle %>">+</button>
+</form>
+
+</div>
+
+<%- include("footer");  -%>
